@@ -4,7 +4,9 @@ import { Theme } from '@radix-ui/themes';
 
 export default function App({ Component, pageProps }) {
   return (
-  <Theme>
+    <Theme
+    appearance="dark"
+  >
   <Component {...pageProps} />
   </Theme>);
 }
