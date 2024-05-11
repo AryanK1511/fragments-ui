@@ -9,18 +9,14 @@ Amplify.configure({
       loginWith: {
         oauth: {
           domain: process.env.NEXT_PUBLIC_AWS_COGNITO_HOSTED_UI_DOMAIN,
-          scopes: [
-            'phone',
-            'email',
-            'openid',
-          ],
+          scopes: ['phone', 'email', 'openid'],
           redirectSignIn: [process.env.NEXT_PUBLIC_OAUTH_SIGN_IN_REDIRECT_URL],
           redirectSignOut: [process.env.NEXT_PUBLIC_OAUTH_SIGN_OUT_REDIRECT_URL],
-          responseType: 'code'
-        }
-      }
-    }
-  }
+          responseType: 'code',
+        },
+      },
+    },
+  },
 });
 
 // You can get the current config object
