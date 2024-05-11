@@ -1,20 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { CustomButton } from '@/components/CustomButton/CustomButton';
-import { signInWithRedirect } from 'aws-amplify/auth';
-import { signOut } from 'aws-amplify/auth';
-import { getUser } from '@/lib';
+import { signInWithRedirect, signOut } from 'aws-amplify/auth';
 import { useAuth } from '@/hooks';
 
 // ===== HOME PAGE =====
 export default function Home() {
-  // Define state to check whether user is logged in or not
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // Get user state from useAuth hook
   const { user } = useAuth();
 
-  // Fetch the user details
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
+  // Define whether login and logout buttons should be disabled
+  const isUserLoggedIn = user !== null;
+  const isUserLoggedOut = user === null;
 
   // Handles user login and logout
   const handleButtonClick = async (action) => {
@@ -28,10 +24,21 @@ export default function Home() {
   return (
     <div className="p-20">
       <h1 className="text-6xl font-semibold">Fragments UI</h1>
-      <div className="space-x-4 my-12">
-        <CustomButton text="Login" variant="solid" onClick={() => handleButtonClick('Login')} />
-        <CustomButton text="Logout" variant="outline" onClick={() => handleButtonClick('Logout')} />
+      <div className="space-x-4 my-12 flex">
+        <CustomButton
+          text="Login"
+          variant="solid"
+          onClick={() => handleButtonClick('Login')}
+          disabled={isUserLoggedIn}
+        />
+        <CustomButton
+          text="Logout"
+          variant="outline"
+          onClick={() => handleButtonClick('Logout')}
+          disabled={isUserLoggedOut}
+        />
       </div>
+      {isUserLoggedIn && <span>Welcome {user?.username}</span>}
     </div>
   );
 }

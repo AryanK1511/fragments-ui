@@ -6,7 +6,7 @@ export const useAuth = () => {
   // Set a state to keep a record of the user
   const [user, setUser] = useState(null);
 
-  // Check to see whether the user is authenticated
+  // Get the details of the authenticated user
   useEffect(() => {
     const fetchUser = async () => {
       try {
