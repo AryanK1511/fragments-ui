@@ -1,16 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { CustomButton } from '@/components/CustomButton/CustomButton';
 import { signInWithRedirect, signOut } from 'aws-amplify/auth';
 import { useAuth } from '@/hooks';
+import { getUserFragments } from '@/lib/api';
 
 // ===== HOME PAGE =====
 export default function Home() {
+  // Set state to see if the user is authenticated
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   // Get user state from useAuth hook
   const { user } = useAuth();
 
-  // Define whether login and logout buttons should be disabled
-  const isUserLoggedIn = user !== null;
-  const isUserLoggedOut = user === null;
+  // Set authentication state according to user authentication status
+  useEffect(() => {
+    user ? setIsUserLoggedIn(true) : setIsUserLoggedIn(false);
+  }, [user]);
+
+  // Do an authenticated request to the fragments API server
+  useEffect(() => {
+    if (user) {
+      console.log(user);
+      const getFragments = async () => {
+        try {
+          const userFragments = await getUserFragments(user);
+          console.log(userFragments);
+        } catch (err) {
+          console.error('Unable to call fragments API', { err });
+        }
+      };
+
+      getFragments();
+    }
+  }, [user]);
 
   // Handles user login and logout
   const handleButtonClick = async (action) => {
@@ -35,7 +56,7 @@ export default function Home() {
           text="Logout"
           variant="outline"
           onClick={() => handleButtonClick('Logout')}
-          disabled={isUserLoggedOut}
+          disabled={!isUserLoggedIn}
         />
       </div>
       {isUserLoggedIn && <span>Welcome {user?.username}</span>}
