@@ -14,7 +14,7 @@ export const useAuth = () => {
         setUser(userData);
       } catch (error) {
         setUser(null);
-        console.error('Error fetching user:', error);
+        console.error('User is not authenticated');
       }
     };
 

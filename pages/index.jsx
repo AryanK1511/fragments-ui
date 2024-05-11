@@ -19,11 +19,10 @@ export default function Home() {
   // Do an authenticated request to the fragments API server
   useEffect(() => {
     if (user) {
-      console.log(user);
+      console.log('Authenticated User Details: ', user);
       const getFragments = async () => {
         try {
           const userFragments = await getUserFragments(user);
-          console.log(userFragments);
         } catch (err) {
           console.error('Unable to call fragments API', { err });
         }
