@@ -1,6 +1,6 @@
 # Fragments UI
 
-Frontend to leverage AWS-based fragments microservice.
+Next.js frontend to leverage AWS-based fragments microservice.
 
 ## How to run this project?
 
