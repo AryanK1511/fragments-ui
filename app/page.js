@@ -1,8 +1,11 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { CustomButton } from '@/components/CustomButton/CustomButton';
 import { signInWithRedirect, signOut } from 'aws-amplify/auth';
 import { useAuth } from '@/hooks';
 import { getUserFragments } from '@/lib/api';
+import '@/aws/config';
 
 // ===== HOME PAGE =====
 export default function Home() {

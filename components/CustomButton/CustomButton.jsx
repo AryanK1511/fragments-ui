@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@radix-ui/themes';
+import { Button } from '@nextui-org/react';
 
 // ===== CUSTOM BUTTON COMPONENT =====
 export const CustomButton = ({ text, variant, onClick, disabled }) => {
