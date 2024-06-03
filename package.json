@@ -12,6 +12,7 @@
     "@nextui-org/react": "^2.4.0",
     "aws-amplify": "^6.3.4",
     "framer-motion": "^11.2.9",
+    "jotai": "^2.8.3",
     "next": "14.2.3",
     "prettier": "^3.2.5",
     "react": "^18",

@@ -2,9 +2,9 @@ import React from 'react';
 import { Button } from '@nextui-org/react';
 
 // ===== CUSTOM BUTTON COMPONENT =====
-export const CustomButton = ({ text, variant, onClick, disabled }) => {
+export const CustomButton = ({ text, onClick }) => {
   return (
-    <Button variant={variant} size="3" onClick={onClick} disabled={disabled}>
+    <Button size="lg" onClick={onClick} radius="sm" variant="ghost">
       <span className="font-semibold">{text}</span>
     </Button>
   );
