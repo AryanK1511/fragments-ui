@@ -4,8 +4,7 @@ import { CustomButton } from '../CustomButton/CustomButton';
 import { signInWithRedirect, signOut } from 'aws-amplify/auth';
 import { useAtom } from 'jotai';
 import { userAtom } from '@/store';
-import { logger } from '@/logger';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 // ===== NAVBAR COMPONENT =====
 export const Nav = () => {
@@ -19,23 +18,23 @@ export const Nav = () => {
   const handleButtonClick = async (action) => {
     // Log the user in if the action is login
     if (action.toLowerCase() === 'login') {
-      logger.info('Logging the user in');
+      console.log('Logging the user in');
 
       try {
         await signInWithRedirect();
       } catch (err) {
-        logger.info('There was an error while logging the user in.');
+        console.log('There was an error while logging the user in.');
         router.push('/'); // Redirect the user to the homepage in case of failure
       }
 
       // Log the user out if the action is logout
     } else if (action.toLowerCase() === 'logout') {
-      logger.info('Logging the user out');
+      console.log('Logging the user out');
 
       try {
         await signOut();
       } catch (err) {
-        logger.info('There was an error while logging the user out.');
+        console.log('There was an error while logging the user out.');
         router.push('/'); // Redirect the user to the homepage in case of failure
       }
     }
