@@ -7,7 +7,9 @@ import { signInWithRedirect } from 'aws-amplify/auth';
 export const BasicHomepage = () => {
   return (
     <div className={`flex flex-col items-center mt-20 min-h-screen p-20 ${styles.homepage}`}>
-      <h1 className="text-6xl font-semibold">Fragments UI</h1>
+      <h1 className="text-6xl font-semibold">
+        <span className="text-cyan-700">Fragments</span> UI
+      </h1>
       <p className="mt-4 text-xl text-gray-700 text-center">
         This is a Next.js frontend created to test the Fragments microservice.
       </p>
