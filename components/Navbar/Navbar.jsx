@@ -4,21 +4,46 @@ import { CustomButton } from '../CustomButton/CustomButton';
 import { signInWithRedirect, signOut } from 'aws-amplify/auth';
 import { useAtom } from 'jotai';
 import { userAtom } from '@/store';
+import { logger } from '@/logger';
+import { useRouter } from 'next/router';
 
+// ===== NAVBAR COMPONENT =====
 export const Nav = () => {
+  // Init router
+  const router = useRouter();
+
+  // Global state to check whether the user is logged in and their details
   const [userDetails] = useAtom(userAtom);
 
+  // Handles the user authentication flow
   const handleButtonClick = async (action) => {
+    // Log the user in if the action is login
     if (action.toLowerCase() === 'login') {
-      await signInWithRedirect();
+      logger.info('Logging the user in');
+
+      try {
+        await signInWithRedirect();
+      } catch (err) {
+        logger.info('There was an error while logging the user in.');
+        router.push('/'); // Redirect the user to the homepage in case of failure
+      }
+
+      // Log the user out if the action is logout
     } else if (action.toLowerCase() === 'logout') {
-      await signOut();
+      logger.info('Logging the user out');
+
+      try {
+        await signOut();
+      } catch (err) {
+        logger.info('There was an error while logging the user out.');
+        router.push('/'); // Redirect the user to the homepage in case of failure
+      }
     }
   };
 
   return (
-    <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-      <Navbar style={{ width: '100%', maxWidth: '1200px' }}>
+    <div>
+      <Navbar maxWidth="full" className="px-10">
         <NavbarBrand>
           <p className="font-bold text-xl">Fragments UI</p>
         </NavbarBrand>
