@@ -18,23 +18,17 @@ export const Nav = () => {
   const handleButtonClick = async (action) => {
     // Log the user in if the action is login
     if (action.toLowerCase() === 'login') {
-      console.log('Logging the user in');
-
       try {
         await signInWithRedirect();
       } catch (err) {
-        console.log('There was an error while logging the user in.');
         router.push('/'); // Redirect the user to the homepage in case of failure
       }
 
       // Log the user out if the action is logout
     } else if (action.toLowerCase() === 'logout') {
-      console.log('Logging the user out');
-
       try {
         await signOut();
       } catch (err) {
-        console.log('There was an error while logging the user out.');
         router.push('/'); // Redirect the user to the homepage in case of failure
       }
     }
