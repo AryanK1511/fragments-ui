@@ -14,14 +14,16 @@ import {
 import { useRouter } from 'next/navigation';
 import { useAtom } from 'jotai';
 import { userAtom } from '@/store';
+import { fragmentsAtom } from '@/store';
 
 // ===== ADD FRAGMENT MODAL =====
 export const AddFragmentModal = () => {
   // Init router
   const router = useRouter();
 
-  // User state
-  const [userDetails, setUserDetails] = useAtom(userAtom);
+  // Shared states
+  const [userDetails] = useAtom(userAtom);
+  const [fragments, setFragments] = useAtom(fragmentsAtom);
 
   // State to handle the opening and closing of the modal
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -33,8 +35,9 @@ export const AddFragmentModal = () => {
   const handleFormSubmit = async () => {
     // Make an API call to the backend to store the fragment
     try {
-      await createUserFragment(userDetails.user, data, 'text/plain');
-      setUserDetails({ ...userDetails, addedFragment: true });
+      const result = await createUserFragment(userDetails.user, data, 'text/plain');
+      setFragments([...fragments, result.fragment.id]);
+      console.log(fragments);
     } catch (err) {
       router.push('/'); // Redirect the user to the homepage if an error occurs
     }
