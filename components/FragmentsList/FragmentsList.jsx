@@ -31,9 +31,11 @@ export const FragmentsList = () => {
   return (
     <div>
       {fragments.length === 0 && (
-        <div>
-          <h1>There are no fragments for the user</h1>
-        </div>
+        <Card className="my-5">
+          <CardBody className="text-center">
+            <p>There are no fragments here yet</p>
+          </CardBody>
+        </Card>
       )}
       {fragments?.map((fragment, index) => (
         <Card className="my-5" key={index}>
