@@ -37,7 +37,6 @@ export const AddFragmentModal = () => {
     try {
       const result = await createUserFragment(userDetails.user, data, 'text/plain');
       setFragments([...fragments, result.fragment.id]);
-      console.log(fragments);
     } catch (err) {
       router.push('/'); // Redirect the user to the homepage if an error occurs
     }
