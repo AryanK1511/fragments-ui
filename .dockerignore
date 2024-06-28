@@ -1,0 +1,14 @@
+.dockerignore
+.env*
+!.env.production
+.eslint*
+.git
+.gitignore
+.next
+.prettier*
+README.md
+.vscode
+docker
+Dockerfile
+node_modules
+npm-debug.log
