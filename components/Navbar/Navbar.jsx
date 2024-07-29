@@ -2,17 +2,15 @@ import React from 'react';
 import { Navbar, NavbarBrand, NavbarItem } from '@nextui-org/react';
 import { CustomButton } from '../CustomButton/CustomButton';
 import { signInWithRedirect, signOut } from 'aws-amplify/auth';
-import { useAtom } from 'jotai';
-import { userAtom } from '@/store';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/hooks';
 
 // ===== NAVBAR COMPONENT =====
 export const Nav = () => {
-  // Init router
   const router = useRouter();
 
-  // Global state to check whether the user is logged in and their details
-  const [userDetails] = useAtom(userAtom);
+  // Get the user details from our custom hook
+  const { user } = useAuth();
 
   // Handles the user authentication flow
   const handleButtonClick = async (action) => {
@@ -21,7 +19,7 @@ export const Nav = () => {
       try {
         await signInWithRedirect();
       } catch (err) {
-        router.push('/'); // Redirect the user to the homepage in case of failure
+        router.push('/');
       }
 
       // Log the user out if the action is logout
@@ -29,7 +27,7 @@ export const Nav = () => {
       try {
         await signOut();
       } catch (err) {
-        router.push('/'); // Redirect the user to the homepage in case of failure
+        router.push('/');
       }
     }
   };
@@ -42,7 +40,7 @@ export const Nav = () => {
         </NavbarBrand>
         <div className="flex items-center">
           <NavbarItem>
-            {userDetails.isLoggedIn ? (
+            {user ? (
               <CustomButton
                 onClick={() => {
                   handleButtonClick('logout');
