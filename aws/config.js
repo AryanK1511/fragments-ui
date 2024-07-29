@@ -18,6 +18,3 @@ Amplify.configure({
     },
   },
 });
-
-// You can get the current config object
-// const awsConfig = Amplify.getConfig();
