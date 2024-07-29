@@ -18,6 +18,7 @@ export const FragmentsList = ({ user }) => {
         const result = await getUserFragments(user);
         setFragments(result.fragments);
       } catch (error) {
+        console.error(`An error occurred: ${error}`);
         router.push('/');
       }
     };
@@ -26,7 +27,7 @@ export const FragmentsList = ({ user }) => {
   }, [router, setFragments, user]);
 
   return (
-    <div className="container mx-auto px-4">
+    <div className="container mx-auto px-4 mb-20">
       {fragments.length === 0 ? (
         <Card className="my-5 shadow-lg">
           <CardBody className="text-center">
