@@ -31,7 +31,7 @@ export const ViewDropdown = ({ fragmentId, fragmentType, user }) => {
       setModalContent(content);
       setModalVisible(true);
     } catch (error) {
-      console.error('Error fetching fragment:', error);
+      console.error(`An error occurred: ${error}`);
     }
   };
 
