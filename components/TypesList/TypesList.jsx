@@ -1,6 +1,6 @@
 import React from 'react';
 import { Select, SelectItem } from '@nextui-org/react';
-import { possibleTypes } from '@/lib/mappings';
+import { possibleTypes, conversions, typeKeys } from '@/lib/mappings';
 
 // ===== TYPES LIST COMPONENT =====
 export const TypesList = ({ selectedType, setSelectedType }) => {
@@ -9,10 +9,10 @@ export const TypesList = ({ selectedType, setSelectedType }) => {
       <Select
         label="Select a file type"
         value={selectedType}
-        onChange={(e) => setSelectedType(possibleTypes[e.target.value])}
+        onChange={(e) => setSelectedType(typeKeys[e.target.value])}
         className="max-w"
       >
-        {possibleTypes.map((type, index) => (
+        {typeKeys.map((type, index) => (
           <SelectItem key={index} value={type}>
             {type}
           </SelectItem>

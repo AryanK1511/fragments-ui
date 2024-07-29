@@ -13,6 +13,7 @@ export const useAuth = () => {
         const userData = await getUser();
         setUser(userData);
       } catch (error) {
+        console.error(`An error occurred: ${error}`);
         setUser(null);
       }
     };
