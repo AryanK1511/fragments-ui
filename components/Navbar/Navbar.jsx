@@ -18,7 +18,8 @@ export const Nav = () => {
     if (action.toLowerCase() === 'login') {
       try {
         await signInWithRedirect();
-      } catch (err) {
+      } catch (error) {
+        console.error(`An error occurred: ${error}`);
         router.push('/');
       }
 
@@ -26,7 +27,8 @@ export const Nav = () => {
     } else if (action.toLowerCase() === 'logout') {
       try {
         await signOut();
-      } catch (err) {
+      } catch (error) {
+        console.error(`An error occurred: ${error}`);
         router.push('/');
       }
     }
