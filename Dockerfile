@@ -26,7 +26,7 @@ WORKDIR /app
 # Copy over files from the previous stage
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-# COPY .env.production ./.env.production
+COPY .env.production ./.env.production
 
 # Building the application
 RUN npm run build
