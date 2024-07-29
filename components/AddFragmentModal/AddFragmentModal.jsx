@@ -10,19 +10,12 @@ import {
   Button,
   useDisclosure,
 } from '@nextui-org/react';
-import { useRouter } from 'next/navigation';
 import { useAtom } from 'jotai';
-import { userAtom } from '@/store';
 import { fragmentsAtom } from '@/store';
 import { TypesList } from '../TypesList/TypesList';
 
 // ===== ADD FRAGMENT MODAL =====
-export const AddFragmentModal = () => {
-  // Init router
-  const router = useRouter();
-
-  // Shared states
-  const [userDetails] = useAtom(userAtom);
+export const AddFragmentModal = ({ user }) => {
   const [fragments, setFragments] = useAtom(fragmentsAtom);
 
   // State to handle the opening and closing of the modal
@@ -30,21 +23,14 @@ export const AddFragmentModal = () => {
 
   // State to handle the user response
   const [file, setFile] = useState(null);
-  const [fragmentData, setFragmentData] = useState(null);
   const [selectedType, setSelectedType] = useState(null);
   const [error, setError] = useState('');
 
   // Handle file input change
   const handleFileChange = (e) => {
-    const uploadedFile = event.target.files[0];
-
+    const uploadedFile = e.target.files[0];
     if (uploadedFile) {
       setFile(uploadedFile);
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setFragmentData(e.target.result);
-      };
-      reader.readAsText(uploadedFile);
     }
     setError('');
   };
@@ -68,19 +54,13 @@ export const AddFragmentModal = () => {
       return;
     }
 
-    // Create form data
-    const formData = new FormData();
-    formData.append('user', userDetails.user);
-    formData.append('idToken', userDetails.user.idToken.toString());
-    formData.append('fragmentData', fragmentData);
-    formData.append('contentType', selectedType);
-
     // Reset everything
     setFile(null);
     setError('');
 
     try {
-      const result = await createUserFragment(formData);
+      // Send the file uploaded, type and the user id token to the backend API
+      const result = await createUserFragment(file, selectedType, user);
       setFragments([...fragments, result.fragment]);
 
       // Close the modal
@@ -132,7 +112,7 @@ export const AddFragmentModal = () => {
                             strokeLinejoin="round"
                           />
                         </svg>
-                        <div className="flex text-sm text-gray-600 flex justify-center align-center">
+                        <div className="text-sm text-gray-600 flex justify-center align-center">
                           <label
                             htmlFor="file-upload"
                             className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
